@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import Reveal from "@/components/ui/Reveal";
 
 export const metadata: Metadata = {
     title: "About Us — AI Automation & Technology Agency",
@@ -27,11 +28,11 @@ export default function AboutPage() {
                     <div className="relative">
                         <div className="absolute -inset-4 bg-burgundy/5 rounded-full blur-2xl" />
                         <Image
-                            src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1000&auto=format&fit=crop"
+                            src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop"
                             alt="Technology team at work"
                             width={800}
                             height={800}
-                            className="relative rounded-2xl shadow-lift object-cover h-[400px] w-full"
+                            className="relative rounded-2xl shadow-lift object-cover h-[450px] w-full"
                         />
                     </div>
                 </div>
@@ -46,13 +47,15 @@ export default function AboutPage() {
                             { t: "Our Values", d: "Transparency in scope and pricing, honesty about tradeoffs, and a bias toward outcomes over outputs." },
                             { t: "Our Focus", d: "AI, automation, custom software, and growth technology for mid-market and growing US businesses." },
                         ].map((c, i) => (
-                            <div key={c.t} className="card p-8 border-t-4 border-t-burgundy hover:-translate-y-1 transition-transform">
-                                <div className="mb-4 text-xs font-bold uppercase tracking-widest text-burgundy">
-                                    0{i + 1}
+                            <Reveal key={c.t} delay={i * 80}>
+                                <div className="card p-8 border-t-4 border-t-burgundy hover:-translate-y-1 transition-transform h-full">
+                                    <div className="mb-4 text-xs font-bold uppercase tracking-widest text-burgundy">
+                                        0{i + 1}
+                                    </div>
+                                    <h2 className="font-display text-xl font-semibold text-charcoal">{c.t}</h2>
+                                    <p className="mt-3 text-sm leading-relaxed text-charcoal/70">{c.d}</p>
                                 </div>
-                                <h2 className="font-display text-xl font-semibold text-charcoal">{c.t}</h2>
-                                <p className="mt-3 text-sm leading-relaxed text-charcoal/70">{c.d}</p>
-                            </div>
+                            </Reveal>
                         ))}
                     </div>
                 </div>

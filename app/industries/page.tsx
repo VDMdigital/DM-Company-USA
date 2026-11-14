@@ -9,7 +9,6 @@ export const metadata: Metadata = {
     description: "We develop intelligent digital solutions tailored to the unique challenges, workflows, and opportunities of different industries.",
 };
 
-// Images mapping based on slug
 const industryImages: Record<string, string> = {
     "healthcare": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800&auto=format&fit=crop",
     "retail-fmcg-ecommerce": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=800&auto=format&fit=crop",
@@ -47,25 +46,24 @@ export default function IndustriesPage() {
                     <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                         {industries.map((ind, i) => (
                             <Reveal key={ind.slug} delay={i * 40}>
-                                <div id={ind.slug} className="group card h-full flex flex-col overflow-hidden scroll-mt-24 p-0">
+                                <div id={ind.slug} className="group card h-full flex flex-col overflow-hidden scroll-mt-24 p-0 border-beige/50 hover:shadow-lift">
                                     {/* Image Section */}
-                                    <div className="relative h-48 w-full overflow-hidden">
-                                        <div className="absolute inset-0 bg-charcoal/20 group-hover:bg-transparent transition-colors z-10" />
+                                    <div className="relative h-56 w-full overflow-hidden">
                                         <Image
                                             src={industryImages[ind.slug] || "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop"}
                                             alt={ind.name}
                                             width={600}
                                             height={400}
-                                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
-                                        <div className="absolute top-4 right-4 z-20 rounded-full bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-bold text-burgundy shadow-sm">
-                                            {ind.name.split(' ')[0]}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
+                                        <div className="absolute bottom-4 left-4 z-20">
+                                            <h2 className="font-display text-xl font-bold text-white">{ind.name}</h2>
                                         </div>
                                     </div>
 
                                     {/* Content Section */}
                                     <div className="flex flex-1 flex-col p-6">
-                                        <h2 className="font-display text-xl font-bold text-charcoal">{ind.name}</h2>
                                         <p className="mt-2 text-sm leading-relaxed text-charcoal/70 flex-1">
                                             {ind.description}
                                         </p>
@@ -109,7 +107,7 @@ export default function IndustriesPage() {
                 <div className="container-editorial text-center">
                     <Reveal>
                         <h2 className="mx-auto max-w-3xl text-display-lg text-cream-light">
-                            Donot see your industry listed?
+                            Do not see your industry listed?
                         </h2>
                         <p className="mx-auto mt-4 max-w-2xl text-lg text-cream-light/70">
                             Our solutions are adaptable to almost any business model. Let us discuss how we can apply AI and automation to your specific needs.

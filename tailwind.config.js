@@ -9,12 +9,12 @@ module.exports = {
     extend: {
       colors: {
         burgundy: {
-          DEFAULT: "#A52B27",
-          deep: "#81201D",
+          DEFAULT: "#BF0A30", // Naya Color
+          deep: "#990824",    // Hover ke liye thoda dark
         },
         cream: {
-          DEFAULT: "#F5EBDD",
-          light: "#FAF7F1",
+          DEFAULT: "#F5EBDD", // Warm Cream
+          light: "#FAF7F1",   // Light Cream Background
         },
         charcoal: "#231F1D",
         beige: "#E9DFD1",

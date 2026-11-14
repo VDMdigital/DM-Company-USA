@@ -54,7 +54,7 @@ export default function Footer() {
                         <div className="text-xs font-semibold uppercase tracking-[0.18em] text-cream-light/50">Company</div>
                         <ul className="mt-4 space-y-2.5 text-sm">
                             <li><Link href="/about" className="hover:text-burgundy transition-colors">About Us</Link></li>
-                            <li><Link href="/process" className="hover:text-burgundy transition-colors">Our Process</Link></li>
+                            {/* "Our Process" yahan se remove kar diya gaya hai */}
                             <li><Link href="/contact" className="hover:text-burgundy transition-colors">Contact</Link></li>
                             <li><Link href="/privacy" className="hover:text-burgundy transition-colors">Privacy Policy</Link></li>
                             <li><Link href="/terms" className="hover:text-burgundy transition-colors">Terms & Conditions</Link></li>
@@ -63,7 +63,6 @@ export default function Footer() {
                 </div>
 
                 <div className="mt-14 flex flex-col items-start justify-between gap-3 border-t border-cream-light/10 pt-6 text-xs text-cream-light/50 sm:flex-row sm:items-center">
-                    {/* FIXED DATE ERROR */}
                     <div>&copy; 2026 {siteConfig.name}. All rights reserved.</div>
                     <div>United States</div>
                 </div>
