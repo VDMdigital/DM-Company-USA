@@ -6,12 +6,14 @@ import { services } from "@/lib/data/services";
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [servicesOpen, setServicesOpen] = useState(false);
 
-    // Sub-menu ke liye state
-    const [subMenuOpen, setSubMenuOpen] = useState(false);
-    const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
-    const [mobileSubMenuOpen, setMobileSubMenuOpen] = useState(false);
+    // Desktop Dropdowns State
+    const [aiMenuOpen, setAiMenuOpen] = useState(false);
+    const [marketingMenuOpen, setMarketingMenuOpen] = useState(false);
+
+    // Mobile Dropdowns State
+    const [mobileAiOpen, setMobileAiOpen] = useState(false);
+    const [mobileMarketingOpen, setMobileMarketingOpen] = useState(false);
 
     const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -26,23 +28,24 @@ export default function Navbar() {
     useEffect(() => {
         const onClick = (e: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-                setServicesOpen(false);
-                setSubMenuOpen(false); // Sub-menu bhi band karein
+                setAiMenuOpen(false);
+                setMarketingMenuOpen(false);
             }
         };
         document.addEventListener("mousedown", onClick);
         return () => document.removeEventListener("mousedown", onClick);
     }, []);
 
-    // Services list ko 2 hisson mein baant rahe hain
-    const mainServices = services.filter(s =>
+    // Services ko 2 hisson mein baant rahe hain
+    const aiServices = services.filter(s =>
         !["website-development", "mobile-app-development", "ai-seo-geo-ppc"].includes(s.slug)
     );
 
     const marketingServices = [
-        { title: "Website Development", slug: "website-development" },
-        { title: "Mobile App Development", slug: "mobile-app-development" },
-        { title: "AI SEO, GEO & Google PPC", slug: "ai-seo-geo-ppc" },
+        { title: "AI Digital Marketing", slug: "ai-digital-marketing", desc: "Smarter campaigns & analytics" },
+        { title: "Website Development", slug: "website-development", desc: "Custom high-performance websites" },
+        { title: "Mobile App Development", slug: "mobile-app-development", desc: "iOS & Android applications" },
+        { title: "AI SEO, GEO & PPC", slug: "ai-seo-geo-ppc", desc: "Search & AI-powered discovery" },
     ];
 
     return (
@@ -51,83 +54,92 @@ export default function Navbar() {
                 }`}
         >
             <nav className="container-editorial flex h-20 items-center justify-between">
+
+                {/* Logo */}
                 <Link href="/" className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight text-charcoal">
                     <span className="grid h-8 w-8 place-items-center rounded-md bg-burgundy text-cream-light text-sm font-bold">A</span>
                     Aurelius<span className="text-burgundy">AI</span>
                 </Link>
 
-                <div className="hidden items-center gap-8 lg:flex">
-                    <Link href="/" className="text-sm font-medium text-charcoal/80 hover:text-burgundy">Home</Link>
+                {/* Desktop Menu */}
+                <div className="hidden items-center gap-8 lg:flex" ref={dropdownRef}>
+                    <Link href="/" className="text-sm font-medium text-charcoal/80 hover:text-burgundy transition-colors">Home</Link>
 
-                    {/* SERVICES DROPDOWN (Normal List) */}
-                    <div className="relative" ref={dropdownRef}>
+                    {/* AI Services Dropdown */}
+                    <div className="relative">
                         <button
-                            onClick={() => setServicesOpen((v) => !v)}
-                            className="flex items-center gap-1 text-sm font-medium text-charcoal/80 hover:text-burgundy"
-                            aria-expanded={servicesOpen}
+                            onClick={() => {
+                                setAiMenuOpen((v) => !v);
+                                setMarketingMenuOpen(false);
+                            }}
+                            className="flex items-center gap-1 text-sm font-medium text-charcoal/80 hover:text-burgundy transition-colors"
                         >
-                            Services
-                            <svg width="12" height="12" viewBox="0 0 12 12" className={`transition-transform ${servicesOpen ? "rotate-180" : ""}`}>
+                            AI Services
+                            <svg width="12" height="12" viewBox="0 0 12 12" className={`transition-transform duration-200 ${aiMenuOpen ? "rotate-180" : ""}`}>
                                 <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" />
                             </svg>
                         </button>
 
-                        {servicesOpen && (
-                            <div className="absolute left-0 top-full mt-3 w-[280px] rounded-xl border border-beige bg-white p-2 shadow-lift flex flex-col">
-                                {/* Baqi Services */}
-                                {mainServices.map((s) => (
+                        {aiMenuOpen && (
+                            <div className="absolute left-0 top-full mt-4 w-[320px] rounded-xl border border-beige bg-white p-2 shadow-lift">
+                                {aiServices.map((s) => (
                                     <Link
                                         key={s.slug}
                                         href={`/services/${s.slug}`}
-                                        onClick={() => setServicesOpen(false)}
-                                        className="block rounded-lg px-4 py-2.5 text-sm font-medium text-charcoal hover:bg-cream-light hover:text-burgundy transition-colors"
+                                        onClick={() => setAiMenuOpen(false)}
+                                        className="block rounded-lg px-4 py-3 hover:bg-cream-light transition-colors group"
                                     >
-                                        {s.title}
+                                        <div className="text-sm font-semibold text-charcoal group-hover:text-burgundy transition-colors">{s.title}</div>
+                                        <div className="text-xs text-charcoal/60 mt-0.5 line-clamp-1">{s.shortDescription}</div>
                                     </Link>
                                 ))}
-
-                                {/* AI Digital Marketing (Sub-menu Trigger) */}
-                                <div
-                                    className="relative group/sub"
-                                    onMouseEnter={() => setSubMenuOpen(true)}
-                                    onMouseLeave={() => setSubMenuOpen(false)}
-                                >
-                                    <button
-                                        className="flex w-full items-center justify-between rounded-lg px-4 py-2.5 text-sm font-medium text-charcoal hover:bg-cream-light hover:text-burgundy transition-colors"
-                                    >
-                                        AI Digital Marketing
-                                        <svg width="12" height="12" viewBox="0 0 12 12" className="rotate-[-90deg]"><path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" /></svg>
-                                    </button>
-
-                                    {/* Sub-menu (Right Side) */}
-                                    {subMenuOpen && (
-                                        <div className="absolute left-full top-0 ml-2 w-[240px] rounded-xl border border-beige bg-white p-2 shadow-lift">
-                                            {marketingServices.map((sub) => (
-                                                <Link
-                                                    key={sub.slug}
-                                                    href={`/services/${sub.slug}`}
-                                                    onClick={() => setServicesOpen(false)}
-                                                    className="block rounded-lg px-4 py-2.5 text-sm font-medium text-charcoal hover:bg-cream-light hover:text-burgundy transition-colors"
-                                                >
-                                                    {sub.title}
-                                                </Link>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
                             </div>
                         )}
                     </div>
 
-                    <Link href="/industries" className="text-sm font-medium text-charcoal/80 hover:text-burgundy">Industries</Link>
-                    <Link href="/about" className="text-sm font-medium text-charcoal/80 hover:text-burgundy">About Us</Link>
-                    <Link href="/contact" className="text-sm font-medium text-charcoal/80 hover:text-burgundy">Contact</Link>
+                    {/* Digital Marketing Dropdown */}
+                    <div className="relative">
+                        <button
+                            onClick={() => {
+                                setMarketingMenuOpen((v) => !v);
+                                setAiMenuOpen(false);
+                            }}
+                            className="flex items-center gap-1 text-sm font-medium text-charcoal/80 hover:text-burgundy transition-colors"
+                        >
+                            Digital Marketing
+                            <svg width="12" height="12" viewBox="0 0 12 12" className={`transition-transform duration-200 ${marketingMenuOpen ? "rotate-180" : ""}`}>
+                                <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+                            </svg>
+                        </button>
+
+                        {marketingMenuOpen && (
+                            <div className="absolute left-0 top-full mt-4 w-[320px] rounded-xl border border-beige bg-white p-2 shadow-lift">
+                                {marketingServices.map((s) => (
+                                    <Link
+                                        key={s.slug}
+                                        href={`/services/${s.slug}`}
+                                        onClick={() => setMarketingMenuOpen(false)}
+                                        className="block rounded-lg px-4 py-3 hover:bg-cream-light transition-colors group"
+                                    >
+                                        <div className="text-sm font-semibold text-charcoal group-hover:text-burgundy transition-colors">{s.title}</div>
+                                        <div className="text-xs text-charcoal/60 mt-0.5 line-clamp-1">{s.desc}</div>
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    <Link href="/industries" className="text-sm font-medium text-charcoal/80 hover:text-burgundy transition-colors">Industries</Link>
+                    <Link href="/about" className="text-sm font-medium text-charcoal/80 hover:text-burgundy transition-colors">About Us</Link>
+                    <Link href="/contact" className="text-sm font-medium text-charcoal/80 hover:text-burgundy transition-colors">Contact</Link>
                 </div>
 
+                {/* Desktop CTA Button */}
                 <div className="hidden lg:block">
                     <Link href="/contact" className="btn-primary">Book a Free Consultation</Link>
                 </div>
 
+                {/* Mobile Menu Button */}
                 <button className="lg:hidden p-2" onClick={() => setMobileOpen((v) => !v)} aria-label="Toggle menu" aria-expanded={mobileOpen}>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                         {mobileOpen
@@ -137,51 +149,49 @@ export default function Navbar() {
                 </button>
             </nav>
 
-            {/* MOBILE MENU */}
+            {/* Mobile Menu */}
             {mobileOpen && (
                 <div className="border-t border-beige bg-cream-light lg:hidden max-h-[calc(100vh-5rem)] overflow-y-auto">
                     <div className="container-editorial flex flex-col gap-1 py-4">
                         <Link href="/" onClick={() => setMobileOpen(false)} className="rounded-md px-3 py-2.5 text-sm font-medium">Home</Link>
 
-                        {/* Mobile Services */}
+                        {/* Mobile AI Services */}
                         <button
-                            onClick={() => setMobileServicesOpen((v) => !v)}
+                            onClick={() => setMobileAiOpen((v) => !v)}
                             className="flex items-center justify-between rounded-md px-3 py-2.5 text-sm font-medium"
-                            aria-expanded={mobileServicesOpen}
                         >
-                            Services
-                            <svg width="12" height="12" viewBox="0 0 12 12" className={`transition-transform ${mobileServicesOpen ? "rotate-180" : ""}`}>
+                            AI Services
+                            <svg width="12" height="12" viewBox="0 0 12 12" className={`transition-transform ${mobileAiOpen ? "rotate-180" : ""}`}>
                                 <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" />
                             </svg>
                         </button>
-
-                        {mobileServicesOpen && (
-                            <div className="pl-4 space-y-1">
-                                {mainServices.map((s) => (
+                        {mobileAiOpen && (
+                            <div className="pl-4 py-1 space-y-1">
+                                {aiServices.map((s) => (
                                     <Link key={s.slug} href={`/services/${s.slug}`} onClick={() => setMobileOpen(false)} className="block rounded-md py-2 text-sm text-charcoal/70">
                                         {s.title}
                                     </Link>
                                 ))}
+                            </div>
+                        )}
 
-                                {/* Mobile Submenu */}
-                                <button
-                                    onClick={() => setMobileSubMenuOpen((v) => !v)}
-                                    className="flex w-full items-center justify-between rounded-md py-2 text-sm text-charcoal/70"
-                                >
-                                    AI Digital Marketing
-                                    <svg width="12" height="12" viewBox="0 0 12 12" className={`transition-transform ${mobileSubMenuOpen ? "rotate-180" : ""}`}>
-                                        <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" />
-                                    </svg>
-                                </button>
-                                {mobileSubMenuOpen && (
-                                    <div className="pl-4">
-                                        {marketingServices.map((s) => (
-                                            <Link key={s.slug} href={`/services/${s.slug}`} onClick={() => setMobileOpen(false)} className="block rounded-md py-1.5 text-xs text-charcoal/70">
-                                                {s.title}
-                                            </Link>
-                                        ))}
-                                    </div>
-                                )}
+                        {/* Mobile Digital Marketing */}
+                        <button
+                            onClick={() => setMobileMarketingOpen((v) => !v)}
+                            className="flex items-center justify-between rounded-md px-3 py-2.5 text-sm font-medium"
+                        >
+                            Digital Marketing
+                            <svg width="12" height="12" viewBox="0 0 12 12" className={`transition-transform ${mobileMarketingOpen ? "rotate-180" : ""}`}>
+                                <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+                            </svg>
+                        </button>
+                        {mobileMarketingOpen && (
+                            <div className="pl-4 py-1 space-y-1">
+                                {marketingServices.map((s) => (
+                                    <Link key={s.slug} href={`/services/${s.slug}`} onClick={() => setMobileOpen(false)} className="block rounded-md py-2 text-sm text-charcoal/70">
+                                        {s.title}
+                                    </Link>
+                                ))}
                             </div>
                         )}
 

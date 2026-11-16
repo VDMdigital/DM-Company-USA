@@ -33,8 +33,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${manrope.variable} ${jakarta.variable}`} data-scroll-behavior="smooth">
-      <body className="bg-cream-light text-charcoal font-sans antialiased">
+    <html
+      lang="en"
+      className={`${manrope.variable} ${jakarta.variable}`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
+      <body
+        className="bg-cream-light text-charcoal font-sans antialiased"
+        suppressHydrationWarning
+      >
         <Navbar />
         <main id="main">{children}</main>
         <Footer />

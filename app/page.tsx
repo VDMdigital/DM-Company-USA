@@ -12,17 +12,17 @@ import { homepageFaqs } from "@/lib/data/faqs";
 export default function HomePage() {
   return (
     <>
-      {/* HERO WITH PREMIUM BACKGROUND */}
+      {/* HERO WITH BACKGROUND IMAGE */}
       <section className="relative overflow-hidden bg-charcoal">
         <div className="absolute inset-0 z-0">
           <Image
             src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop"
             alt="Global Tech Network"
             fill
-            className="object-cover opacity-20"
+            className="object-cover opacity-30"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/90 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/90 to-charcoal/40" />
         </div>
 
         <div className="container-editorial relative z-10 grid min-h-[calc(100vh-5rem)] items-center gap-12 py-16 lg:grid-cols-[1.05fr_1fr] lg:py-24">
@@ -69,7 +69,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* SERVICES (INTERACTIVE SLIDER) */}
+      {/* SERVICES SLIDER */}
       <section id="services" className="bg-cream py-20 lg:py-28 overflow-hidden">
         <div className="container-editorial">
           <Reveal>
@@ -85,10 +85,7 @@ export default function HomePage() {
               <Link href="/services" className="btn-secondary shrink-0">View All Services</Link>
             </div>
           </Reveal>
-
-          {/* Yahan Slider Component Call Ho Raha Hai */}
           <Slider services={services} />
-
         </div>
       </section>
 
@@ -116,7 +113,7 @@ export default function HomePage() {
                     <h3 className="font-display text-base font-semibold">{ind.name}</h3>
                     <span className="text-burgundy transition-transform group-hover:translate-x-1">→</span>
                   </div>
-                  <p className="mt-2 text-sm leading-relaxed text-charcoal/70">{ind.description}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-charcoal/70 line-clamp-3">{ind.description}</p>
                 </Link>
               </Reveal>
             ))}
@@ -124,7 +121,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* WHY CHOOSE US */}
+      {/* WHY CHOOSE US (IMAGE SPLIT) */}
       <section className="bg-charcoal py-20 lg:py-28 overflow-hidden">
         <div className="container-editorial grid gap-14 lg:grid-cols-2 lg:items-center">
           <Reveal>
@@ -200,15 +197,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FINAL CTA */}
+      {/* FINAL CTA WITH BACKGROUND IMAGE */}
       <section className="relative bg-charcoal py-24 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000&auto=format&fit=crop"
             alt="Technology Background"
             fill
-            className="object-cover opacity-10"
+            className="object-cover opacity-20"
           />
+          <div className="absolute inset-0 bg-charcoal/60" />
         </div>
         <div className="container-editorial relative z-10 text-center">
           <Reveal>

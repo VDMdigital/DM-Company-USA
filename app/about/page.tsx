@@ -8,6 +8,12 @@ export const metadata: Metadata = {
     description: "We're a US-based AI automation and technology agency helping businesses build smarter digital systems.",
 };
 
+const teamImages = [
+    "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop",
+];
+
 export default function AboutPage() {
     return (
         <>
@@ -54,6 +60,33 @@ export default function AboutPage() {
                                     </div>
                                     <h2 className="font-display text-xl font-semibold text-charcoal">{c.t}</h2>
                                     <p className="mt-3 text-sm leading-relaxed text-charcoal/70">{c.d}</p>
+                                </div>
+                            </Reveal>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* TEAM IN ACTION (3 Images) */}
+            <section className="bg-cream py-20 lg:py-28">
+                <div className="container-editorial">
+                    <Reveal>
+                        <div className="text-center mb-14">
+                            <span className="eyebrow justify-center">Our Team in Action</span>
+                            <h2 className="mt-4 text-display-md">Real people. Real partnerships.</h2>
+                        </div>
+                    </Reveal>
+                    <div className="grid gap-6 md:grid-cols-3">
+                        {teamImages.map((src, i) => (
+                            <Reveal key={i} delay={i * 80}>
+                                <div className="relative overflow-hidden rounded-2xl shadow-soft group h-[350px]">
+                                    <Image
+                                        src={src}
+                                        alt={`Team working ${i + 1}`}
+                                        fill
+                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                                 </div>
                             </Reveal>
                         ))}

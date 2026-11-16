@@ -15,7 +15,7 @@ const industryImages: Record<string, string> = {
     "b2b-b2c": "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800&auto=format&fit=crop",
     "real-estate": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800&auto=format&fit=crop",
     "construction-home-services": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=800&auto=format&fit=crop",
-    "travel-hospitality": "https://images.unsplash.com/photo-1542314831-c6a4d1424b94?q=80&w=800&auto=format&fit=crop",
+    "travel-hospitality": "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?q=80&w=800&auto=format&fit=crop",
     "manufacturing": "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop",
     "small-business": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop",
     "trading": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&auto=format&fit=crop",
@@ -47,7 +47,6 @@ export default function IndustriesPage() {
                         {industries.map((ind, i) => (
                             <Reveal key={ind.slug} delay={i * 40}>
                                 <div id={ind.slug} className="group card h-full flex flex-col overflow-hidden scroll-mt-24 p-0 border-beige/50 hover:shadow-lift">
-                                    {/* Image Section */}
                                     <div className="relative h-56 w-full overflow-hidden">
                                         <Image
                                             src={industryImages[ind.slug] || "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop"}
@@ -62,7 +61,6 @@ export default function IndustriesPage() {
                                         </div>
                                     </div>
 
-                                    {/* Content Section */}
                                     <div className="flex flex-1 flex-col p-6">
                                         <p className="mt-2 text-sm leading-relaxed text-charcoal/70 flex-1">
                                             {ind.description}
